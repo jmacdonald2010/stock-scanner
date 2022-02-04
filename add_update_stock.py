@@ -1,9 +1,10 @@
 from multiprocessing.sharedctypes import Value
 from connect import connect_to_session
 from tables import Stocks
-import yfinance as yf
+import yfinance as yf 
 import datetime
 from add_industry_sector import add_industry_sector, fetch_industry_sector_data
+from sqlalchemy import func
 
 def add_update_stock(symbol, is_held):
 
@@ -22,7 +23,7 @@ def add_update_stock(symbol, is_held):
             # As long as everything is correct, the function should exit here
             stock = row
             stock.is_held = is_held
-            stock.datetime_updated = datetime.datetime.now()
+            stock.datetime_updated = func.now()
             session.commit()
             return stock
         else:

@@ -1,7 +1,13 @@
 # Changelog for Scanner
 
 ## 02/04/2022 06:08
-Testing the add_update_stock function. Fails the test, but it did successfully add the entry to the database. Now I just need to write in the update logic, and then it will hopefully pass the test.
+Testing the add_update_stock function. Fails the test, but it did successfully add the entry to the database. Now I just need to write in the update logic, and then it will hopefully pass the test. 
+
+### 16:26
+
+Datetime records to the database in the correct timezone (mine) now. Not doing much more to ensure UTC time writing/conversion, etc. as I'm the only targeted user.
+
+Updated add_update_stock passes test.
 
 ### 06:49
 After some slight trouble with almost accidentally corrupting the database (really just needed to restart the container), the add_update_stock function passes the test. However, the datetime_updated column in the database is recording the time as if my timezone is UTC + 5, instead of minus. I'm not sure exactly what's going on here, or what will be involved in fixing it.
