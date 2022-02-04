@@ -5,13 +5,28 @@ import yfinance as yf
 import datetime
 from add_industry_sector import add_industry_sector, fetch_industry_sector_data
 
-def add_stock(symbol, is_held):
+def add_update_stock(symbol, is_held):
 
     """This function takes a stock symbol as a string, makes a call to yfinance, and gets back the necessary data to add the symbol to the database.
     
     `is_held` must also be specified, to mark the is_held flag in the database True/False."""
 
     session = connect_to_session()
+
+    # I imagine it isn't terribly likely that a company will change industry/sectors
+    # So all we will focus on updating is is_held and datetime_updated
+    # Start by querying to see if the stock exists in the database
+    for row in session.query(Stocks).filter(Stocks.symbol == symbol):
+        # there should only be one entry here, so this should work
+        if row.symbol == symbol:
+            # As long as everything is correct, the function should exit here
+            stock = row
+            stock.is_held = is_held
+            stock.datetime_updated = datetime.datetime.now()
+            session.commit()
+            return stock
+        else:
+            continue
 
     data = yf.Ticker(symbol).info
 
@@ -21,15 +36,7 @@ def add_stock(symbol, is_held):
     ind_sect_dict['industry'] = fetch_industry_sector_data('Industry', session)
     ind_sect_dict['sector'] = fetch_industry_sector_data('Sector', session)
 
-    """ # Now get the industry/sector ID, or write it to the DB
-    try:
-        industry_id = industry[data['industry']]
-    except KeyError:
-        add_industry_sector('Industry', data['industry'], session) """
-
     # Attempting above as a for loop for less copy/paste
-    # Run w/ Debugger first
-    # ind_sect_dict = dict()
     ids = dict()
     for x in ind_sect_dict.keys():
         try:
@@ -50,9 +57,11 @@ def add_stock(symbol, is_held):
         is_held=is_held,
         datetime_updated=datetime.datetime.now())
 
-    # Add entry to DB (or updated???)
+    # Add entry to DB
     session.add(stock)
     session.commit()
+
+    return stock
 
 if __name__ == "__main__":
 
@@ -65,4 +74,4 @@ if __name__ == "__main__":
         is_held = False
     else:
         raise ValueError("Invalid input was given. User should input either Y or N")
-    add_stock(symbol, is_held)
+    add_update_stock(symbol, is_held)
