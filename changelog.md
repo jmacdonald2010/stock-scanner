@@ -1,5 +1,8 @@
 # Changelog for Scanner
 
+## 02/04/2022 06:08
+Testing the add_update_stock function. Fails the test, but it did successfully add the entry to the database. Now I just need to write in the update logic, and then it will hopefully pass the test.
+
 ## 02/03/2022 22:48
 Got the Database build script to work and fully build the database after having quite the time getting docker to run the container. 
 
