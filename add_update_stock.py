@@ -17,16 +17,36 @@ def add_stock(symbol, is_held):
 
     # Check to see if the existing Industry/Sectors exist in the Db
     # Fetch all Industry names
+    ind_sect_dict = dict()
+    ind_sect_dict['industry'] = fetch_industry_sector_data('Industry', session)
+    ind_sect_dict['sector'] = fetch_industry_sector_data('Sector', session)
 
+    """ # Now get the industry/sector ID, or write it to the DB
+    try:
+        industry_id = industry[data['industry']]
+    except KeyError:
+        add_industry_sector('Industry', data['industry'], session) """
 
+    # Attempting above as a for loop for less copy/paste
+    # Run w/ Debugger first
+    # ind_sect_dict = dict()
+    ids = dict()
+    for x in ind_sect_dict.keys():
+        try:
+            ids[f'{x}_id'] = ind_sect_dict[x][data[x]]
+        except KeyError:
+            new = add_industry_sector(x, data[x], session)
+            ids[f'{x}_id'] = new.id
 
     # Create an object of the stock
     stock = Stocks(
         symbol=symbol, 
         short_name=data['shortName'],
         long_name=data['longName'],
-        industry_id=data['industry'],
-        sector_id=data['sector'],
+        # industry_id=data['industry'],
+        # sector_id=data['sector'],
+        industry_id=ids['industry_id'],
+        sector_id=ids['sector_id'],
         is_held=is_held,
         datetime_updated=datetime.datetime.now())
 

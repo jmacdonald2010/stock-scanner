@@ -15,9 +15,11 @@ def add_industry_sector(table, name, session):
     # Connect to DB
     # session = connect_to_session()
 
-    if table == 'Industry':
+    table = table.lower()
+
+    if table == 'industry':
         new = Industry(industry_name=name)
-    elif table == 'Sector':
+    elif table == 'sector':
         new = Sector(sector_name=name)
     else:
         raise ValueError("Incorrect table/object name given. Please specify ONLY Industry or Sector.")
@@ -35,9 +37,11 @@ def fetch_industry_sector_data(table, session):
     
     `session` is the session created by the `connect_to_session` function."""
 
-    if table == 'Industry':
+    table = table.lower()
+
+    if table == 'industry':
         table = Industry
-    elif table == 'Sector':
+    elif table == 'sector':
         table = Sector
     else:
         raise ValueError("Incorrect table/object name given. Please specify ONLY Industry or Sector.")

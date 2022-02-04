@@ -18,7 +18,7 @@ class Stocks(Base):
     industry_id = Column(Integer, ForeignKey('industry.id'))
     sector_id = Column(Integer, ForeignKey('sector.id'))
     is_held = Column(Boolean)
-    datetime_updated = Column(DateTime(timezone=True))
+    datetime_updated = Column(DateTime))
     
 """ class holdings(Base):
 
