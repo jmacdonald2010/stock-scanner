@@ -1,5 +1,8 @@
 # Changelog for Scanner
 
+## 02/08/2022 06:39
+Built a test for adding new stock info to the database. First error is in the function itself, it gets a data error, integer out of range. Need to research how to update the columns in these tables to have the highest data precision. Possibly changing all values in that table to type Numeric.
+
 ## 02/04/2022 06:08
 Testing the add_update_stock function. Fails the test, but it did successfully add the entry to the database. Now I just need to write in the update logic, and then it will hopefully pass the test. 
 
