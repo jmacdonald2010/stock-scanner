@@ -3,6 +3,9 @@
 ## 02/08/2022 06:39
 Built a test for adding new stock info to the database. First error is in the function itself, it gets a data error, integer out of range. Need to research how to update the columns in these tables to have the highest data precision. Possibly changing all values in that table to type Numeric.
 
+### 06:56
+Test still fails, but now at a different point. Currently getting a `Instance is not bound to a session` error. However, the data did sucessfully write to the database, but now we just need to be sure that we can check that data against a pull from yf at about the same time. Also updated the StockInfo columns to type `Numeric` and fixed a datetime issue in `add_update_stock`.
+
 ## 02/04/2022 06:08
 Testing the add_update_stock function. Fails the test, but it did successfully add the entry to the database. Now I just need to write in the update logic, and then it will hopefully pass the test. 
 

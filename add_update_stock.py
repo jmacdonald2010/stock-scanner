@@ -56,7 +56,7 @@ def add_update_stock(symbol, is_held):
         industry_id=ids['industry_id'],
         sector_id=ids['sector_id'],
         is_held=is_held,
-        datetime_updated=datetime.datetime.now())
+        datetime_updated=func.now())
 
     # Add entry to DB
     session.add(stock)
