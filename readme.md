@@ -6,6 +6,8 @@ This project is meant to make my life a little bit easier by automating part of 
 
 This is very much still a work in progress. The MVP will run after market close, fetch the new data, and store it. Future iterations of this project will include a script to automatically send emails with important updates on my holdings and stocks that may be worth keeping a closer eye on. I also hope to build a dashboard (using Dash) that can be run locally. 
 
+The notebooks are mostly for sketching out ideas or trying features of packages I haven't used before.
+
 The plan is to deploy the project to a Raspberry Pi in my home.
 
 ## Roadmap
