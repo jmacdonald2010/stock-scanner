@@ -17,6 +17,6 @@ def connect_to_session():
     engine = connect()
 
     Session = sessionmaker(bind=engine)
-    session = Session()
+    session = Session(expire_on_commit=False)
 
     return session

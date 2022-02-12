@@ -114,6 +114,7 @@ def get_new_stock_info(symbol):
 
     session.add(info)
     session.commit()
+    # session.close()
 
     return info
 

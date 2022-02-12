@@ -1,5 +1,8 @@
 # Changelog for Scanner
 
+## 02/12/2022 08:10
+Continuing to get the `Instance is not bound to a session` error. Tried changing a few things but the error persists. Next thing I'll try is just using my connect() function to get the engine object and using engine.connect(), instead of the session() that I'd normally use. Not sure if this is how select statements work with SQLalchemy? I'm half tempted to just write the whole thing using raw SQL.
+
 ## 02/08/2022 06:39
 Built a test for adding new stock info to the database. First error is in the function itself, it gets a data error, integer out of range. Need to research how to update the columns in these tables to have the highest data precision. Possibly changing all values in that table to type Numeric.
 

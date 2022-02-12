@@ -8,12 +8,12 @@ import json
 
 def test_get_new_stock_info():
 
-    # Connect
-    session = connect_to_session()
-
     symbol = 'AAPL'
 
     info = get_new_stock_info(symbol)
+
+    # Connect
+    session = connect_to_session()
 
     # Now pull the most recent entry from the database on that symbol
     s = select(StockInfo).where(StockInfo.id == info.id).where(StockInfo.entry_datetime == info.entry_datetime)
