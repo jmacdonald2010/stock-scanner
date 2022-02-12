@@ -16,9 +16,12 @@ def test_get_new_stock_info():
     session = connect_to_session()
 
     # Now pull the most recent entry from the database on that symbol
-    s = select(StockInfo).where(StockInfo.id == info.id).where(StockInfo.entry_datetime == info.entry_datetime)
-    r = session.execute(s)
-    r = r.fetchall()[0]
+    # s = select(StockInfo).where(StockInfo.id == info.id).where(StockInfo.entry_datetime == info.entry_datetime)
+    # r = session.execute(s)
+    # r = r.fetchall()[0]
+    query = session.query(StockInfo).filter(StockInfo.id==info.id).all()[0]
+    # Attempting to convert to dict
+    query = query.__dict__
 
     # Make a call to YF for us to compare the data on
     # Depending on how often this data updates (and I'm unsure of that), this may fail and need rewritten
@@ -30,7 +33,7 @@ def test_get_new_stock_info():
         False: 0
     } """
 
-    with open('stock_info_yf_info_keys.txt') as f:
+    with open('stock_info_keys_values.json') as f:
         column_k_v = json.load(f)
 
     errors = []
@@ -38,8 +41,8 @@ def test_get_new_stock_info():
     """ for column in StockInfo.__table__.columns:
         if column in keys:
             info """
-    for k, v in column_k_v:
-        if info.c[k] != data[v]:
+    for k, v in column_k_v.items():
+        if query[k] != data[v]:
             errors.append(f'Error with data mismatch on column {k}.')
 
     assert not errors, f'Errors occurred: {errors}.'

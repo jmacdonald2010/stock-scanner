@@ -3,6 +3,9 @@
 ## 02/12/2022 08:10
 Continuing to get the `Instance is not bound to a session` error. Tried changing a few things but the error persists. Next thing I'll try is just using my connect() function to get the engine object and using engine.connect(), instead of the session() that I'd normally use. Not sure if this is how select statements work with SQLalchemy? I'm half tempted to just write the whole thing using raw SQL.
 
+### 15:40
+Identified error that will cause the tests to fail when I stop getting tracebacks: the data type for query[k] is a Decimal object, whereas data[v] is a float. I need to find a way to convert this decimal object to a float in this comparison. And fix the Key errors. There's that too. **CAUSE**: the revenue_growth key error is due to an extra space at the end of the name. That needs fixed.
+
 ## 02/08/2022 06:39
 Built a test for adding new stock info to the database. First error is in the function itself, it gets a data error, integer out of range. Need to research how to update the columns in these tables to have the highest data precision. Possibly changing all values in that table to type Numeric.
 
