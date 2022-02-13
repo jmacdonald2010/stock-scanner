@@ -3,6 +3,9 @@
 ## 02/13/2022 07:15
 Something about not failing, just finding a million ways that didn't work. get_stock_info passes the test, granted, with some try/except logic, only for datatype conversion though (as the values being pulled from the DB were Decimals and not floats, except when they were strings or None). Might be able to start building the main part of the script now? At least a functional loop to regularly pull info after market close.
 
+### 07:55
+Adding a new function that tests to see if the tables exist in the database. Need to build the test for it.
+
 ## 02/12/2022 08:10
 Continuing to get the `Instance is not bound to a session` error. Tried changing a few things but the error persists. Next thing I'll try is just using my connect() function to get the engine object and using engine.connect(), instead of the session() that I'd normally use. Not sure if this is how select statements work with SQLalchemy? I'm half tempted to just write the whole thing using raw SQL.
 
