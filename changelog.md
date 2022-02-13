@@ -6,6 +6,9 @@ Something about not failing, just finding a million ways that didn't work. get_s
 ### 07:55
 Adding a new function that tests to see if the tables exist in the database. Need to build the test for it.
 
+### 08:02
+New function check_db passes a basic test. Now onwards to sketching out (by hand, in onenote) the main script, then implementing.
+
 ## 02/12/2022 08:10
 Continuing to get the `Instance is not bound to a session` error. Tried changing a few things but the error persists. Next thing I'll try is just using my connect() function to get the engine object and using engine.connect(), instead of the session() that I'd normally use. Not sure if this is how select statements work with SQLalchemy? I'm half tempted to just write the whole thing using raw SQL.
 

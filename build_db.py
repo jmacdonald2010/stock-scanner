@@ -36,7 +36,7 @@ def check_db(tables):
         try:
             # This will only have input from the main script and tests.
             engine.execute(f"select 1 from stock_scanner_v1.{table};")
-        except sqlalchemy.exc.OperationalError:
+        except sqlalchemy.exc.ProgrammingError:
             return False
 
     # If we make it to here, all tables exist
