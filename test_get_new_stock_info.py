@@ -1,3 +1,4 @@
+from multiprocessing.sharedctypes import Value
 import pytest
 from connect import connect_to_session
 from tables import Stocks, Industry, Sector, StockInfo
@@ -42,7 +43,11 @@ def test_get_new_stock_info():
         if column in keys:
             info """
     for k, v in column_k_v.items():
-        if query[k] != data[v]:
+        try:
+            x = float(query[k])
+        except (ValueError, TypeError):
+            x = query[k]
+        if x != data[v]:
             errors.append(f'Error with data mismatch on column {k}.')
 
     assert not errors, f'Errors occurred: {errors}.'
