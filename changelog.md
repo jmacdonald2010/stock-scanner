@@ -1,5 +1,16 @@
 # Changelog for Scanner
 
+## 02/19/2022 12:23
+Started working on the backend_main file. Hasn't been test-run yet, and I will probably try to first step through with the debugger to make sure everything is working the way it should first. I'll need to modify the date/hour variables to get it to work the way I need it to in testing (likely not a formal test). Once it is working, I will move the backend files to a subfolder, create a dockerfile for it, create a docker-compose file (for the database), and then attempt to deploy to a Raspberry Pi prior to building the dashboard.
+
+Next steps:
+- Change Day/Hour vars as needed for testing at any time.
+- Step through, make sure data is recorded as needed.
+- Move to subfolder
+- Create Dockerfile
+- Create Docker-compose file
+- Figure out how to regularly backup a docker volume to an external drive?
+
 ## 02/13/2022 07:15
 Something about not failing, just finding a million ways that didn't work. get_stock_info passes the test, granted, with some try/except logic, only for datatype conversion though (as the values being pulled from the DB were Decimals and not floats, except when they were strings or None). Might be able to start building the main part of the script now? At least a functional loop to regularly pull info after market close.
 
