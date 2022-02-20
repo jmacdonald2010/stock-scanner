@@ -10,7 +10,7 @@ import datetime
 from get_stock_info import get_new_stock_info
 from tables import Stocks, StockInfo
 from time import sleep
-from sqlalchemy import Date, cast
+from sqlalchemy import Date, cast, func
 
 
 def backend_main():
@@ -35,6 +35,7 @@ def backend_main():
     # If the Database exists and there are stocks in it, check the time of day/day of the week
     day = datetime.datetime.now().weekday()
     hour = datetime.datetime.now().hour
+    today = datetime.date.today()
     # comment out below, used for testing only
     day = 0
     hour = 17
@@ -49,13 +50,16 @@ def backend_main():
                 # If so, skip it, to avoid duplicates in the data.
                 entry_added = False
                 for row2 in session.query(StockInfo.entry_datetime).filter(StockInfo.symbol_id==row.id):
-                    if cast(row2, Date) == datetime.date.today():
+                    # casted_date = cast(row2[0], Date)
+                    casted_date = row2[0].date()
+                    if casted_date == today:
                         entry_added = True
                         break
                 if entry_added == False:
                     new_info = get_new_stock_info(row.symbol)
-                # sleep to avoid getting blocked from yf
-                sleep(3)
+                    sleep(3)
+                # sleep to avoid getting blocked from
+                # yf
             
 
 if __name__ == "__main__":

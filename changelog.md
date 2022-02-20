@@ -17,6 +17,9 @@ Ran into a KeyError on a symbol when fetching new info. Need to build a more rob
 ### 19:36
 Created a new test to check for missing variables from the yf call and fill them in as None. Updated the get_stock_info file to accommadate for this. The symbols currently in the database all wrote successfully.
 
+### 21:25
+Realizing the way my backend_main function is written may not be ideal. It would probably be better to write the function with the weekday/hour logic *outside* of the function itself, especially as the function is currently set to connect to and call to the database when it's run, so effectively, it's a loop of calls to the database. Given the small scale of the project, it probably won't be an issue, but I should probably fix it anyway. Not a high priority right now.
+
 ## 02/13/2022 07:15
 Something about not failing, just finding a million ways that didn't work. get_stock_info passes the test, granted, with some try/except logic, only for datatype conversion though (as the values being pulled from the DB were Decimals and not floats, except when they were strings or None). Might be able to start building the main part of the script now? At least a functional loop to regularly pull info after market close.
 
