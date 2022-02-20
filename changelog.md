@@ -1,5 +1,13 @@
 # Changelog for Scanner
 
+## 02/20/2022 06:24
+Working on a function to run async w/ the backend_main function to allow for the adding of stocks. Ultimately calls on add_update_stock, but allows for a csv file to passed as input as well. When the backend_main is run, this function should run concurrently, allowing for the adding of stocks via the command line while the backend_main function performs the necessary checks and calls. 
+
+- Complete writing new add function
+- Write test for add function with a lot of different things to test.
+- Remove the early return after creating the database in backend_main.
+- Write logic in the if __name__ == "__main__" block to allow for user input of stock info (maybe a third function?)
+
 ## 02/19/2022 12:23
 Started working on the backend_main file. Hasn't been test-run yet, and I will probably try to first step through with the debugger to make sure everything is working the way it should first. I'll need to modify the date/hour variables to get it to work the way I need it to in testing (likely not a formal test). Once it is working, I will move the backend files to a subfolder, create a dockerfile for it, create a docker-compose file (for the database), and then attempt to deploy to a Raspberry Pi prior to building the dashboard.
 
