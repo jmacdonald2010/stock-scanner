@@ -11,6 +11,12 @@ Next steps:
 - Create Docker-compose file
 - Figure out how to regularly backup a docker volume to an external drive?
 
+### 18:39
+Ran into a KeyError on a symbol when fetching new info. Need to build a more robust test on the get info function to ensure that all fields are present, and if not present, then None. The rest of the backend_main function seems to be working okay though.
+
+### 19:36
+Created a new test to check for missing variables from the yf call and fill them in as None. Updated the get_stock_info file to accommadate for this. The symbols currently in the database all wrote successfully.
+
 ## 02/13/2022 07:15
 Something about not failing, just finding a million ways that didn't work. get_stock_info passes the test, granted, with some try/except logic, only for datatype conversion though (as the values being pulled from the DB were Decimals and not floats, except when they were strings or None). Might be able to start building the main part of the script now? At least a functional loop to regularly pull info after market close.
 

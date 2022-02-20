@@ -22,7 +22,7 @@ def backend_main():
 
     # First, Check to see if the Database exists
     # A Postgresql Database Container should be running at this point
-    db_exists = check_db(['stocks', 'sector', 'industry', 'stockinfo'])
+    db_exists = check_db(['stocks', 'sector', 'industry', 'stock_info'])
 
     if db_exists is False:
         build_db(connect())
@@ -35,6 +35,9 @@ def backend_main():
     # If the Database exists and there are stocks in it, check the time of day/day of the week
     day = datetime.datetime.now().weekday()
     hour = datetime.datetime.now().hour
+    # comment out below, used for testing only
+    day = 0
+    hour = 17
 
     # Do not run this on Saturday/Sunday
     if day not in [5, 6]:
@@ -45,8 +48,8 @@ def backend_main():
                 # Check to see if we have an entry for that symbol on a given day
                 # If so, skip it, to avoid duplicates in the data.
                 entry_added = False
-                for row in session.query(StockInfo.entry_datetime).filter(symbol_id=row.id):
-                    if cast(row, Date) == datetime.date.today():
+                for row2 in session.query(StockInfo.entry_datetime).filter(StockInfo.symbol_id==row.id):
+                    if cast(row2, Date) == datetime.date.today():
                         entry_added = True
                         break
                 if entry_added == False:

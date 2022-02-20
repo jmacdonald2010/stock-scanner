@@ -1,6 +1,7 @@
 import yfinance as yf
 from connect import connect_to_session
 from tables import Stocks, Industry, Sector, StockInfo
+import json
 
 def get_new_stock_info(symbol):
 
@@ -12,6 +13,14 @@ def get_new_stock_info(symbol):
 
     # Make the call to yf
     data = yf.Ticker(symbol).info
+
+    # Check through the data to see if any of the necessary keys are missing
+    with open('stock_info_keys_values.json') as f:
+        column_k_v = json.load(f)
+
+    for x, y in column_k_v.items():
+        if y not in data.keys():
+            data[y] = None
 
     # Create a new object for the StockInfo
     info = StockInfo(
