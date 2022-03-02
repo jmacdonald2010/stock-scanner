@@ -1,3 +1,4 @@
+from lib2to3.pytree import Base
 from multiprocessing.sharedctypes import Value
 from tabnanny import check
 from turtle import back
@@ -76,8 +77,13 @@ def add_symbols(symbol=None, is_held=None, file=None, has_header=False, csv_exce
     
     `has_header` is a boolean value representing whether or not the csv file contains a header as the first row. Is False by default.
     
-    `csv_exceptions_raise` is a boolean value, default True. If True, the function will raise a ValueError if an inappropriate value is found in a row in the csv file. If False, the function skips that row and continues with the rest of the file."""
+    `csv_exceptions_raise` is a boolean value, default True. If True, the function will raise a ValueError if an inappropriate value is found in a row in the csv file. If False, the function skips that row and continues with the rest of the file.
+    
+    ## Returns
+    
+    A SQLalchemy table object, or a dictionary of strings for the symbol (key) and SQLalchemy objects (values)."""
 
+    # Defining this as a function b/c it's called twice
     def check_is_held(is_held):
 
         """Checks if the is_held value is valid, returns it if so."""
@@ -102,6 +108,9 @@ def add_symbols(symbol=None, is_held=None, file=None, has_header=False, csv_exce
             raise TypeError("Inappropriate data type provided for is_held. Value must be boolean, integer of 0/1, or string of y/n.")
         return is_held
 
+    ##################### 
+
+    # Symbol/Is Held
 
     # Symbol input
     # First, capitalize the symbol
@@ -116,7 +125,13 @@ def add_symbols(symbol=None, is_held=None, file=None, has_header=False, csv_exce
         if symbol is None:
             raise ValueError("symbol cannot be None if a value for is_held is provided.")
         is_held = check_is_held(is_held)
+
+    # Now, add the symbol the to the database if a csv is not provided
+    if file is None:
+        return add_update_stock(symbol, is_held)
         
+    ################
+    # CSV Provided
 
     # Load the CSV and read through the rows, writing them to the Database
     # First check to make sure that we are not using an individual symbol and a csv is provided.
@@ -137,11 +152,19 @@ def add_symbols(symbol=None, is_held=None, file=None, has_header=False, csv_exce
                         # I need to add in the try/except logic here and whether or not to raise exceptions.
                         symbol = row[0].upper()
                         is_held = check_is_held(row[1])
-                        stock = add_update_stock(symbol, is_held)
-                        symbols[symbol] = stock
+                        try:
+                            stock = add_update_stock(symbol, is_held)
+                            symbols[symbol] = stock
+                        except BaseException as err:
+                            if csv_exceptions_raise is True:
+                                raise BaseException(f"Exception Occurred: {type(err)}: {err}.")
+                            else:
+                                print(f"Error on symbol {symbol}, moving to next symbol in csv.")
                         # symbols[row[0]] = row[1]
+    
+    return symbols
 
-    # load the file and 
+    
 
 if __name__ == "__main__":
 

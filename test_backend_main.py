@@ -1,7 +1,7 @@
 import pytest
 from backend_main import add_symbols
 
-def test_add_symbols():
+def test_add_symbols_capitalization():
 
     """Test the following:
     
@@ -14,5 +14,31 @@ def test_add_symbols():
     Evaluate the database inserts by calling to the database to ensure the information matches.
     
     """
+
+    errors = []
+
+    ##########
+    # Test part one: Capitalization on individual symbols
+
+    cap_symbols = {
+        'aapl': True,
+        'AcN': True,
+        'aGx': True,
+        'dhR': True,
+        'GME': False,
+        'amC': False
+    }
+
+    cs_test = dict()
+
+    for s, h in cap_symbols.items():
+        cs_test[s] = add_symbols(symbol=s, is_held=h)
+
+    # Step one: check the SQLalchemy objects, make sure their symbols are all uppercase
+    for x in cs_test:
+        if x.symbol.is_upper() is False:
+            errors.append(f"Capitalization Errors Occurred, symbol {x.symbol}.")
+
+    assert not errors, f"Errors occurred: {errors}."
 
     
