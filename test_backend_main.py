@@ -1,5 +1,6 @@
 import pytest
 from backend_main import add_symbols
+from time import sleep
 
 def test_add_symbols_capitalization():
 
@@ -33,10 +34,11 @@ def test_add_symbols_capitalization():
 
     for s, h in cap_symbols.items():
         cs_test[s] = add_symbols(symbol=s, is_held=h)
+        sleep(2)
 
     # Step one: check the SQLalchemy objects, make sure their symbols are all uppercase
-    for x in cs_test:
-        if x.symbol.is_upper() is False:
+    for x in cs_test.values():
+        if x.symbol.isupper() is False:
             errors.append(f"Capitalization Errors Occurred, symbol {x.symbol}.")
 
     assert not errors, f"Errors occurred: {errors}."

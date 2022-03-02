@@ -3,6 +3,9 @@
 ## 03/02/2022 05:56
 Decided it will be cleaner to create several different tests for the add symbols function that runs async w/ the backend_main.
 
+### 06:09
+Capitalization test passes.
+
 ## 02/20/2022 06:24
 Working on a function to run async w/ the backend_main function to allow for the adding of stocks. Ultimately calls on add_update_stock, but allows for a csv file to passed as input as well. When the backend_main is run, this function should run concurrently, allowing for the adding of stocks via the command line while the backend_main function performs the necessary checks and calls. 
 
